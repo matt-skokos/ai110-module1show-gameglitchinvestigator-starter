@@ -5,10 +5,10 @@ def get_range_for_difficulty(difficulty: str):
     if difficulty == "Normal":
         return 1, 100
     if difficulty == "Hard":
-        return 1, 50
+        return 1, 200
     return 1, 100
 
-
+#FIX: Refactored logic into logic_utils.py using agent mode
 def parse_guess(raw: str):
     """
     Parse user input into an int guess.
@@ -31,7 +31,7 @@ def parse_guess(raw: str):
 
     return True, value, None
 
-
+#FIX: Refactored logic into logic_utils.py using agent mode
 def check_guess(guess, secret):
     """
     Compare guess to secret and return (outcome, message).

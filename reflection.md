@@ -56,21 +56,29 @@ This was the wrong location for the bug while it was, I checked in the file and 
 ## 3. Debugging and testing your fixes
 
 - How did you decide whether a bug was really fixed?
+The primary way I decided was to manually test the game and verify that the behavior/output reflected the fix I was after. I also used the agent to write several pytests that confirm that the hints and the game reset were both working.
 - Describe at least one test you ran (manual or using pytest)  
   and what it showed you about your code.
+I manually tested the higher/lower hint output. This was easy to do using the debug info in the app.
 - Did AI help you design or understand any tests? How?
+Yes AI helped me to create tests that covered that the game was resetting during new games. It also added a test to verify that game increment logic was working and that there were not abrupt stops during the new game.
 
 ---
 
 ## 4. What did you learn about Streamlit and state?
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+I would say that the edits are not "hot-edits" and that they should definitely be prepared to edit small parts of logic and restart the entire app. I'd also tell them that the code that is executed at the time the app is launch is the code that you will experience for the duration of that launch. 
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
 - What is one habit or strategy from this project that you want to reuse in future labs or projects?
+I want to definitely use the micro-edit habit. I really felt like narrowing in on one function at a time felt much better than for instance just saying I need a feature to work and to keep having it iterate until it finished and I got what I wanted. 
+Furthermore I hadn't been in the practice of having tests generated directly after finishing a class/part of the code. I will definitely be using that as I go further into developing with AI so that I can feel comfortable in the edits and verify the behaviors that I see on the surface are working under the hood.
   - This could be a testing habit, a prompting strategy, or a way you used Git.
 - What is one thing you would do differently next time you work with AI on a coding task?
+As stated above, I really felt a better outcome when I atomized the tasks I was having the AI work on. I feel like it took me way fewer prompts to get what I was asking for by moving a bit more slowly through the code/task. I would also try to come up with a sort of build order for my classes/functions and to make sure that I was developing everything in the correct order. 
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+I feel like I had always appreciated the speed of AI generated code and yet I remained leery of the correctness of the code. In the past I was using it to generate "whole behaviors" by saying I need something to do or to look like x, y, z. Now I feel like I have some insight into a different way to work on code with AI that isn't so much typing out a huge task and hoping I get what I want in the end, but to break down the goal into set steps. It's much easier to control the outcome and to measure where things are going wrong or right by doing this.
