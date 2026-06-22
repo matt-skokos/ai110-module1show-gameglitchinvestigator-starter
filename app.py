@@ -1,6 +1,6 @@
 import random
 import streamlit as st
-from logic_utils import get_range_for_difficulty, parse_guess, check_guess, update_score
+from logic_utils import get_range_for_difficulty, parse_guess, check_guess, update_score, is_binary_search_guess
 
 st.set_page_config(page_title="Glitchy Guesser", page_icon="🎮")
 
@@ -41,6 +41,15 @@ if "status" not in st.session_state:
 if "history" not in st.session_state:
     st.session_state.history = []
 
+if "bs_low" not in st.session_state:
+    st.session_state.bs_low = low
+
+if "bs_high" not in st.session_state:
+    st.session_state.bs_high = high
+
+if "is_binary_search" not in st.session_state:
+    st.session_state.is_binary_search = True
+
 st.subheader("Make a guess")
 
 st.info(
@@ -71,6 +80,9 @@ if new_game:
     st.session_state.attempts = 0
     st.session_state.secret = random.randint(low, high)
     st.session_state.status = "playing"
+    st.session_state.bs_low = low
+    st.session_state.bs_high = high
+    st.session_state.is_binary_search = True
     st.success("New game started.")
     st.rerun()
 
@@ -91,6 +103,10 @@ if submit:
         st.error(err)
     else:
         st.session_state.history.append(guess_int)
+        assert guess_int is not None
+
+        if not is_binary_search_guess(guess_int, st.session_state.bs_low, st.session_state.bs_high):
+            st.session_state.is_binary_search = False
 
         if st.session_state.attempts % 2 == 0:
             secret = str(st.session_state.secret)
@@ -98,6 +114,14 @@ if submit:
             secret = st.session_state.secret
 
         outcome, message = check_guess(guess_int, secret)
+
+        if outcome == "Too High":
+            st.session_state.bs_high = guess_int - 1
+        elif outcome == "Too Low":
+            st.session_state.bs_low = guess_int + 1
+
+        if outcome == "Win" and st.session_state.is_binary_search:
+            outcome = "WinBinarySearch"
 
         if show_hint:
             st.warning(message)
@@ -108,7 +132,16 @@ if submit:
             attempt_number=st.session_state.attempts,
         )
 
-        if outcome == "Win":
+        if outcome == "WinBinarySearch":
+            st.balloons()
+            st.snow()
+            st.session_state.status = "won"
+            st.success(
+                f"🎯 Binary Search Master! Perfect algorithm — "
+                f"the secret was {st.session_state.secret}. "
+                f"Final score: {st.session_state.score}"
+            )
+        elif outcome == "Win":
             st.balloons()
             st.session_state.status = "won"
             st.success(

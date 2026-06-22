@@ -1,3 +1,10 @@
+def is_binary_search_guess(guess: int, range_low: int, range_high: int) -> bool:
+    """Return True if guess equals the floor or ceiling midpoint of [range_low, range_high]."""
+    floor_mid = (range_low + range_high) // 2
+    ceil_mid = (range_low + range_high + 1) // 2
+    return guess == floor_mid or guess == ceil_mid
+
+
 def get_range_for_difficulty(difficulty: str):
     """Return (low, high) inclusive range for a given difficulty."""
     if difficulty == "Easy":
@@ -57,6 +64,12 @@ def check_guess(guess, secret):
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
     """Update score based on outcome and attempt number."""
+    if outcome == "WinBinarySearch":
+        points = 100 - 10 * (attempt_number + 1)
+        if points < 10:
+            points = 10
+        return current_score + points + 50
+
     if outcome == "Win":
         points = 100 - 10 * (attempt_number + 1)
         if points < 10:

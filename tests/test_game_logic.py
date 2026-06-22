@@ -1,4 +1,4 @@
-from logic_utils import check_guess, parse_guess
+from logic_utils import check_guess, parse_guess, is_binary_search_guess, update_score
 
 
 # --- existing tests (fixed: check_guess returns (outcome, message), not a plain string) ---
@@ -70,3 +70,41 @@ def test_hint_uses_int_secret():
     outcome, message = check_guess(10, 50)
     assert outcome == "Too Low"
     assert "HIGHER" in message
+
+
+# --- binary search detection ---
+
+def test_binary_search_floor_midpoint_accepted():
+    # Floor midpoint of 1–100 is 50; should be accepted.
+    assert is_binary_search_guess(50, 1, 100) is True
+
+
+def test_binary_search_ceiling_midpoint_accepted():
+    # Ceiling midpoint of 1–100 is 51; should also be accepted.
+    assert is_binary_search_guess(51, 1, 100) is True
+
+
+def test_binary_search_off_midpoint_rejected():
+    # Any guess that is neither floor nor ceiling midpoint is not a binary search step.
+    assert is_binary_search_guess(40, 1, 100) is False
+
+
+def test_binary_search_single_element_range():
+    # When low == high the only valid guess is that value.
+    assert is_binary_search_guess(7, 7, 7) is True
+
+
+# --- WinBinarySearch scoring ---
+
+def test_win_binary_search_scores_more_than_regular_win():
+    # Same attempt number — binary search win should yield a higher total.
+    regular = update_score(0, "Win", 3)
+    binary = update_score(0, "WinBinarySearch", 3)
+    assert binary > regular
+
+
+def test_win_binary_search_bonus_is_fifty_points():
+    # The bonus is exactly +50 on top of the normal win calculation.
+    regular = update_score(0, "Win", 3)
+    binary = update_score(0, "WinBinarySearch", 3)
+    assert binary - regular == 50
