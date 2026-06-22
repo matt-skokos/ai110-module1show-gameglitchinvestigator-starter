@@ -1,0 +1,24 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.2, pytest-9.1.1, pluggy-1.6.0 -- /Users/matthewskokos/VSCodeProjects/codepath_ai_110/ai110_project_01/ai110-module1show-gameglitchinvestigator-starter/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/matthewskokos/VSCodeProjects/codepath_ai_110/ai110_project_01/ai110-module1show-gameglitchinvestigator-starter
+plugins: anyio-4.14.0
+collecting ... collected 15 items
+
+tests/test_game_logic.py::test_winning_guess PASSED                      [  6%]
+tests/test_game_logic.py::test_guess_too_high PASSED                     [ 13%]
+tests/test_game_logic.py::test_guess_too_low PASSED                      [ 20%]
+tests/test_game_logic.py::test_new_game_resets_attempts_to_zero PASSED   [ 26%]
+tests/test_game_logic.py::test_new_game_first_guess_is_attempt_one PASSED [ 33%]
+tests/test_game_logic.py::test_new_game_status_allows_playing PASSED     [ 40%]
+tests/test_game_logic.py::test_hint_too_high_contains_lower PASSED       [ 46%]
+tests/test_game_logic.py::test_hint_too_low_contains_higher PASSED       [ 53%]
+tests/test_game_logic.py::test_hint_uses_int_secret PASSED               [ 60%]
+tests/test_game_logic.py::test_binary_search_floor_midpoint_accepted PASSED [ 66%]
+tests/test_game_logic.py::test_binary_search_ceiling_midpoint_accepted PASSED [ 73%]
+tests/test_game_logic.py::test_binary_search_off_midpoint_rejected PASSED [ 80%]
+tests/test_game_logic.py::test_binary_search_single_element_range PASSED [ 86%]
+tests/test_game_logic.py::test_win_binary_search_scores_more_than_regular_win PASSED [ 93%]
+tests/test_game_logic.py::test_win_binary_search_bonus_is_fifty_points PASSED [100%]
+
+============================== 15 passed in 0.02s ==============================
